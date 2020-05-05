@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     Button mBtnTao,mBtnDong;
+    String CHANNEL_ID ="chanel_01";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNotification() {
-
+        NotificationCompat.Builder build =
+                new NotificationCompat.Builder(this,CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Có thông báo mới")
+                .setContentText("Bạn nhận được thông báo có version mới cho app")
+                .setWhen(System.currentTimeMillis())
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(
+                                BitmapFactory.decodeResource(
+                                        null ,
+                                        R.drawable.ic_launcher_background)))
     }
 
 }
