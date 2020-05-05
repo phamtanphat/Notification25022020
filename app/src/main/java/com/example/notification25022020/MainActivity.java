@@ -14,6 +14,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("BBB","Oncreate");
 
         mBtnDong = findViewById(R.id.buttonDongNotification);
         mBtnTao = findViewById(R.id.buttonTaoNotification);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private void createNotification() {
         // Intent : Thao tac voi notification
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(
                         this,
