@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         0,
                         intent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder build =
                 new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.mipmap.ic_launcher)
@@ -77,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
             notificationChannel.enableVibration(true);
             notificationManager.createNotificationChannel(notificationChannel);
         }
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        build.setSound(alarmSound);
         notificationManager.notify(mNotificationId, build.build());
     }
 
