@@ -17,9 +17,10 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mBtnTao,mBtnDong;
-    String CHANNEL_ID ="chanel_01";
+    Button mBtnTao, mBtnDong;
+    String CHANNEL_ID = "chanel_01";
     int mNotificationId = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,30 +41,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNotification() {
-        NotificationCompat.Builder build =
-                new NotificationCompat.Builder(this,CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Có thông báo mới")
-                .setContentText("Bạn nhận được thông báo có version mới cho app")
-                .setWhen(System.currentTimeMillis())
-                .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(
-                                BitmapFactory.decodeResource(
-                                        null ,
-                                        R.drawable.ic_launcher_background)));
         // Intent : Thao tac voi notification
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(
                         this,
                         0,
                         intent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder build =
+                new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Có thông báo mới")
+                        .setContentText("Bạn nhận được thông báo có version mới cho app")
+                        .setWhen(System.currentTimeMillis())
+                        .setContentIntent(pendingIntent)
+                        .setStyle(new NotificationCompat.BigPictureStyle()
+                                .bigPicture(
+                                        BitmapFactory.decodeResource(
+                                                null,
+                                                R.drawable.ic_launcher_background)));
+
         // Hien thi ra notification
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notifcation";
             NotificationChannel notificationChannel =
                     new NotificationChannel(
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             notificationChannel.enableVibration(true);
             notificationManager.createNotificationChannel(notificationChannel);
         }
-        notificationManager.notify(mNotificationId,build.build());
+        notificationManager.notify(mNotificationId, build.build());
     }
 
 }
