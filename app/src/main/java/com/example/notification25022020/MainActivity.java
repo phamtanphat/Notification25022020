@@ -66,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "Notifcation";
             NotificationChannel notificationChannel =
-                    new NotificationChannel(CHANNEL_ID,name,NotificationManager.IMPORTANCE_LOW);
+                    new NotificationChannel(
+                            CHANNEL_ID,
+                            name,
+                            NotificationManager.IMPORTANCE_LOW);
+            // che độ rung
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
         }
-
-
-
         notificationManager.notify(mNotificationId,build.build());
     }
 
