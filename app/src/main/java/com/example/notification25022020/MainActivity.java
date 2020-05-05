@@ -3,10 +3,14 @@ package com.example.notification25022020;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button mBtnTao,mBtnDong;
     String CHANNEL_ID ="chanel_01";
+    int mNotificationId = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +50,28 @@ public class MainActivity extends AppCompatActivity {
                         .bigPicture(
                                 BitmapFactory.decodeResource(
                                         null ,
-                                        R.drawable.ic_launcher_background)))
+                                        R.drawable.ic_launcher_background)));
+        // Intent : Thao tac voi notification
+        Intent intent = new Intent(this,MainActivity.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+        // Hien thi ra notification
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Notifcation";
+            NotificationChannel notificationChannel =
+                    new NotificationChannel(CHANNEL_ID,name,NotificationManager.IMPORTANCE_LOW);
+        }
+
+
+
+        notificationManager.notify(mNotificationId,build.build());
     }
 
 }
